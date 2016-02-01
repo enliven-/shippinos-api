@@ -17,8 +17,6 @@ RSpec.describe SessionsController, type: :controller do
       end
 
       it 'returns the user record corresponding to the given credentials' do
-        json_response = JSON.parse(response.body, symbolize_names: true)
-
         expect(json_response[:auth_token]).to eql user.auth_token
       end
 
@@ -35,8 +33,6 @@ RSpec.describe SessionsController, type: :controller do
       end
 
       it 'returns a json with an error' do
-        json_response = JSON.parse(response.body, symbolize_names: true)
-
         expect(json_response[:errors]).to eql 'Invalid email or password'
       end
 

@@ -20,9 +20,6 @@ RSpec.describe Authenticable do
   let(:user)           { FactoryGirl.create(:user) }
   let(:authentication) { Authentication.new }
 
-  def set_http_header!(user)
-    request.headers['Authorization'] = user.auth_token
-  end
 
 
   describe '#current_user' do
@@ -40,7 +37,7 @@ RSpec.describe Authenticable do
 
 
     context 'when user on session' do
-      before { set_http_header!(user) }
+      before { set_http_auth_header!(user.auth_token) }
 
       it 'returns current user' do
         expect(authentication.current_user).to eql user
@@ -79,7 +76,7 @@ RSpec.describe Authenticable do
 
       before(:each) do
         allow(authentication).to receive(:request) { request }
-        set_http_header!(user)
+        set_http_auth_header!(user.auth_token)
       end
       
       it 'returns true for user_signed_in?' do
