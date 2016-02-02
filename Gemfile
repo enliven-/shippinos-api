@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.5'
 gem 'rails-api'
 gem 'devise'
+gem 'active_model_serializers'
 
 
 group :production do
