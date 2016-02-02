@@ -9,10 +9,13 @@ RSpec.describe UsersController, type: :controller do
   let(:valid_session)       { {} }
 
 
+  before(:each) do
+    set_http_auth_header!(user.auth_token)
+  end
+
 
   describe 'GET #index' do
     it 'assigns all users as @users' do
-      user = User.create! valid_attributes
       get :index, {}, valid_session
       expect(assigns(:users)).to eq([user])
     end
@@ -21,7 +24,6 @@ RSpec.describe UsersController, type: :controller do
 
   describe 'GET #show' do
     it 'assigns the requested user as @user' do
-      user = User.create! valid_attributes
       get :show, {:id => user.to_param}, valid_session
       expect(assigns(:user)).to eq(user)
     end
@@ -57,14 +59,12 @@ RSpec.describe UsersController, type: :controller do
       let(:new_attributes) { { email: 'someone@else.com' } }
 
       it 'updates the requested user' do
-        user = User.create! valid_attributes
         put :update, {:id => user.to_param, :user => new_attributes}, valid_session
         user.reload
         expect(user.email).to eq('someone@else.com')
       end
 
       it 'assigns the requested user as @user' do
-        user = User.create! valid_attributes
         put :update, {:id => user.to_param, :user => valid_attributes}, valid_session
         expect(assigns(:user)).to eq(user)
       end
@@ -72,7 +72,6 @@ RSpec.describe UsersController, type: :controller do
 
     context 'with invalid params' do
       it 'assigns the user as @user' do
-        user = User.create! valid_attributes
         put :update, {:id => user.to_param, :user => invalid_attributes}, valid_session
         expect(assigns(:user)).to eq(user)
       end
@@ -82,7 +81,6 @@ RSpec.describe UsersController, type: :controller do
 
   describe 'DELETE #destroy' do
     it 'destroys the requested user' do
-      user = User.create! valid_attributes
       expect {
         delete :destroy, {:id => user.to_param}, valid_session
       }.to change(User, :count).by(-1)

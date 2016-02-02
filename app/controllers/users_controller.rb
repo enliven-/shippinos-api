@@ -1,5 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :update, :destroy]
+  before_action :authenticate_with_token!
+  
 
   # GET /users
   # GET /users.json
