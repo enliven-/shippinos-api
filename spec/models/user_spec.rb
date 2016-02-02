@@ -2,13 +2,14 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
-  it 'responds to attributes email, password (& confirmation) and auth_token' do
+  it 'responds to attributes email, password (& confirmation), auth_token and role' do
     user = User.new
 
     expect(user).to respond_to(:email)
     expect(user).to respond_to(:password)
     expect(user).to respond_to(:password_confirmation)
     expect(user).to respond_to(:auth_token)
+    expect(user).to respond_to(:role)
   end
 
 
@@ -32,6 +33,13 @@ RSpec.describe User, type: :model do
     user = FactoryGirl.build(:user)
  
     expect(user).to validate_uniqueness_of(:auth_token)
+  end
+
+
+  it 'validates presence of role' do
+    user = FactoryGirl.build(:user)
+ 
+    expect(user).to validate_presence_of(:role)
   end
 
 

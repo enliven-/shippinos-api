@@ -5,6 +5,7 @@ gem 'rails', '4.2.5'
 gem 'rails-api'
 gem 'devise'
 gem 'active_model_serializers'
+gem 'cancancan'
 
 
 group :production do

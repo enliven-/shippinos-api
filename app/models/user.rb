@@ -5,9 +5,12 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   validates     :auth_token, uniqueness: true
+  validates     :role, presence: true
+
   before_create :generate_auth_token!
 
-  
+  enum role: { user: 0, manager: 1, admin: 2 }
+
   def generate_auth_token!
     begin
       self.auth_token = Devise.friendly_token
