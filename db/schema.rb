@@ -21,6 +21,23 @@ ActiveRecord::Schema.define(version: 20160202194539) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "ship_requests", force: :cascade do |t|
+    t.integer  "from_city_id"
+    t.integer  "to_city_id"
+    t.date     "from_date"
+    t.date     "until_date"
+    t.integer  "size"
+    t.integer  "user_id"
+    t.integer  "reward"
+    t.text     "message"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+  end
+
+  add_index "ship_requests", ["from_city_id"], name: "index_ship_requests_on_from_city_id"
+  add_index "ship_requests", ["to_city_id"], name: "index_ship_requests_on_to_city_id"
+  add_index "ship_requests", ["user_id"], name: "index_ship_requests_on_user_id"
+
   create_table "users", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
     t.string   "encrypted_password",     default: "", null: false
